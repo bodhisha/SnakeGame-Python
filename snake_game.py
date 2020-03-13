@@ -1,8 +1,13 @@
-#sudo apt install python3-tk
 import turtle
 import time
 import random
+import pygame
 
+pygame.mixer.init()
+
+pygame.mixer.music.load("The Perfect Snake Game.mp3")
+
+pygame.mixer.music.play()
 delay = 0.1
 
 #Score
@@ -96,6 +101,9 @@ while True:
     wn.update()
     # collision with border
     if head.xcor()>290 or head.xcor()<-290 or head.ycor()>290 or head.ycor()<-290:
+        pygame.mixer.music.load("270344__littlerobotsoundfactory__shoot-00.wav")
+
+        pygame.mixer.music.play()       
         time.sleep(1)
         head.goto(0,0)
         head.direction="stop"
@@ -105,6 +113,10 @@ while True:
 
         #clear segment list
         segments.clear()
+        
+        pygame.mixer.music.load("The Perfect Snake Game.mp3")
+
+        pygame.mixer.music.play()
 
         #reset score
         score=0
@@ -117,6 +129,10 @@ while True:
 
     # Collision with food
     if head.distance(food)<15:
+
+        #pygame.mixer.music.load("167127__crisstanza__pause.mp3")
+        #pygame.mixer.music.play()
+
         #move food to random spot
         x=random.randint(-290,290)
         y=random.randint(-290,290)
@@ -166,6 +182,9 @@ while True:
 
             #clear segment list
             segments.clear()
+            pygame.mixer.music.load("The Perfect Snake Game.mp3")
+
+            pygame.mixer.music.play()
 
             #reset score
             score=0
