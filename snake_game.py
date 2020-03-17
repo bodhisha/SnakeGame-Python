@@ -4,10 +4,10 @@ import random
 import pygame
 
 pygame.mixer.init()
-
-pygame.mixer.music.load("The Perfect Snake Game.mp3")
-
-pygame.mixer.music.play()
+def music():
+    pygame.mixer.music.load("The Perfect Snake Game.mp3")
+    pygame.mixer.music.play()
+music()
 delay = 0.1
 
 #Score
@@ -40,6 +40,15 @@ food.shape("circle")
 food.color("white")
 food.penup()
 food.goto(0,100)
+
+#Trap
+
+trap =turtle.Turtle()
+trap.speed(0)
+trap.shape("triangle")
+trap.color("red")
+trap.penup()
+trap.goto(100,0)
 
 segments= []
 
@@ -114,9 +123,7 @@ while True:
         #clear segment list
         segments.clear()
         
-        pygame.mixer.music.load("The Perfect Snake Game.mp3")
-
-        pygame.mixer.music.play()
+        music()
 
         #reset score
         score=0
@@ -182,9 +189,7 @@ while True:
 
             #clear segment list
             segments.clear()
-            pygame.mixer.music.load("The Perfect Snake Game.mp3")
-
-            pygame.mixer.music.play()
+            music()
 
             #reset score
             score=0
@@ -194,6 +199,9 @@ while True:
 
             pen.clear()
             pen.write("Score: {} High Score :{}".format(score,high_score),align="center", font=("Courier", 24,"normal"))
+
+
+    
             
 
 
