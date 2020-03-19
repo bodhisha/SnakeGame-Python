@@ -7,7 +7,6 @@ pygame.mixer.init()
 def music():
     pygame.mixer.music.load("The Perfect Snake Game.mp3")
     pygame.mixer.music.play()
-
 music()
 delay = 0.1
 
@@ -96,6 +95,7 @@ def move():
         x = head.xcor()
         head.setx(x+20)
         
+
 #keyboard bindings
 
 wn.listen()
@@ -104,21 +104,15 @@ wn.onkeypress(go_down,"Down")
 wn.onkeypress(go_left,"Left")
 wn.onkeypress(go_right,"Right")
 
-
-#for trap array
-snakelen = 0
-arr = []
-#start = 1
-
 #main game loopp
+
 while True:
     wn.update()
     # collision with border
     if head.xcor()>290 or head.xcor()<-290 or head.ycor()>290 or head.ycor()<-290:
         pygame.mixer.music.load("270344__littlerobotsoundfactory__shoot-00.wav")
-        pygame.mixer.music.play()  
-        snakelen =0
-        arr= []
+
+        pygame.mixer.music.play()       
         time.sleep(1)
         head.goto(0,0)
         head.direction="stop"
@@ -127,7 +121,8 @@ while True:
             segment.goto(1000,1000)
 
         #clear segment list
-        segments.clear() 
+        segments.clear()
+        
         music()
 
         #reset score
@@ -141,17 +136,14 @@ while True:
 
     # Collision with food
     if head.distance(food)<15:
+
+        #pygame.mixer.music.load("167127__crisstanza__pause.mp3")
+        #pygame.mixer.music.play()
+
         #move food to random spot
         x=random.randint(-290,290)
         y=random.randint(-290,290)
         food.goto(x,y)
-
-        #move trap to random spot
-        x=random.randint(-290,290)
-        y=random.randint(-290,290)
-        trap.goto(x,y)
-
-        snakelen=snakelen+1
 
         #shorten the delay
         delay -=0.001
@@ -162,7 +154,6 @@ while True:
         new_segment.color("grey")
         new_segment.penup()
         segments.append(new_segment)
-        arr.append(new_segment)
 
         # increase score
         score +=10
@@ -184,51 +175,7 @@ while True:
         y=head.ycor()
         segments[0].goto(x,y)
 
-
-
- # Collision with trap
-    if (head.distance(trap)<15):
-		if (snakelen>0):
-			x = random.randint(-270, 270)
-			y = random.randint(-270, 270)
-			trap.goto(x,y)
-			pops=arr.pop(snakelen-1)
-			segments.remove(pops)
-			pops.goto(1000,1000)
-			snakelen=snakelen-1
-			score -= 10
-			
-		else:
-			arr=[]
-			snakelen=0
-            score=0
-		#	pygame.mixer.music.load("red.mp3")
-			#pygame.mixer.music.play()
-			#gameover
-			time.sleep(1)
-			head.goto(0,0)
-			head.direction = "stop"
-			music()
-
-			#Hide the segments
-			for segment in segments:
-				segment.goto(1000,1000)
-
-			#Clear the segment list
-			segments.clear()
-
-			#Reset The Score
-			score =0
-
-			#Reset the delay
-			delay = 0.1
-
-    pen.clear()
-    pen.write("Score: {} High Score :{}".format(score,high_score),align="center", font=("Courier", 24,"normal"))
-
     move()
-
-
 
     #head collision with body segments
     for segment in segments:
@@ -243,10 +190,20 @@ while True:
             #clear segment list
             segments.clear()
             music()
+
+            #reset score
             score=0
+
+            #reset delay
             delay=0.1
+
             pen.clear()
             pen.write("Score: {} High Score :{}".format(score,high_score),align="center", font=("Courier", 24,"normal"))
+
+
+    
+            
+
 
     time.sleep(delay)
 wn.mainloop()
